@@ -22,3 +22,10 @@ dialog{width:min(94vw,540px);max-height:90dvh;overflow:auto;border:0;border-radi
 .trigger-details[open] summary{margin-bottom:9px}
 .trigger-details .checkboxes{margin-bottom:8px}
 .install-card #installApp{margin:9px 0}
+
+/* Installation button, shown only when Android Chrome offers real PWA installation. */
+.header-install{margin-left:auto;flex:none;border:1px solid #bf6e91;border-radius:999px;background:#fff4f8;color:#7e3556;padding:9px 12px;font-size:.79rem;font-weight:800}
+.header-install:not([hidden])+.header-flower{display:none}
+.install-card #checkInstall{display:block;margin:9px 0;border:1px solid #e8c9d8;background:#fff4f8;color:#7d4260}
+.install-checks{white-space:pre-line;background:#fff7fa;border:1px solid #eed7e2;border-radius:12px;padding:12px;font-size:.79rem;line-height:1.7;color:#663f53;overflow-wrap:anywhere}
+@media(max-width:390px){.header-install{font-size:.73rem;padding:8px 10px}}

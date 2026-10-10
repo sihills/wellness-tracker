@@ -197,25 +197,80 @@ $('#downloadCsv').addEventListener('click',()=>download('wellness-tracker-log.cs
 $('#backupJson').addEventListener('click',()=>download('wellness-tracker-backup-'+dayId(localStamp())+'.json',JSON.stringify({app:'Wellness Tracker',formatVersion:1,exportedAt:new Date().toISOString(),data:state},null,2),'application/json'));
 $('#restoreJson').addEventListener('change',async e=>{const file=e.target.files?.[0];if(!file)return;try{if(file.size>10*1024*1024)throw new Error('Backup file is too large.');const doc=JSON.parse(await file.text());const data=doc?.app==='Wellness Tracker'&&doc?.formatVersion===1?doc.data:null;if(!data||!Array.isArray(data.logs)||!data.profile||!Array.isArray(data.profile.conditions)||!Array.isArray(data.profile.medications)||!Array.isArray(data.profile.supplements)||!Array.isArray(data.settings?.pinned))throw new Error('Not a recognised Wellness Tracker backup.');if(data.logs.some(x=>!x||typeof x!=='object'||typeof x.kind!=='string'||typeof x.at!=='string'||Number.isNaN(+new Date(x.at))))throw new Error('Backup contains invalid log entries.');if(confirm('Replace ALL current Wellness Tracker data on this device with this backup? Make a backup of current data first if needed.')){const prev=state;state=data;migrateOldFavorites(state);if(!saveState())state=prev;else{refreshSymptomCatalog();renderAll();toast('Backup restored')}}}catch(err){alert(err.message||'Could not restore this backup.')}finally{e.target.value=''}});
 $('#clearData').addEventListener('click',()=>{if(!confirm('This will permanently erase this app’s local records and health profile on this device. Continue?'))return;const answer=prompt('Type DELETE to confirm.');if(answer!=='DELETE')return;const old=state;state=freshState();if(!saveState())state=old;else{refreshSymptomCatalog();chosenCat='favourites';renderAll();go('today');toast('Local data cleared')}});
+// PWA installation: same Android WebAPK approach as Life Tracker.
 const installBtn=$('#installApp');
+const installHeader=$('#installHeader');
+const installStatus=$('#installStatus');
 let deferredInstallPrompt=null;
+function inInstalledApp(){return window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true}
 function updateInstallInstructions(){
- const installed=window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true;
- $('#installStatus').textContent=installed?'Installed — this is running as a standalone app.':'Android Chrome: open the browser menu (⋮) and choose Install app. If offered Add to Home screen instead, it may create a browser shortcut. iPhone Safari: Share → Add to Home Screen → Add.';
- if(installed)installBtn.hidden=true;
+ const installed=inInstalledApp();
+ installBtn.hidden=installed||!deferredInstallPrompt;
+ installHeader.hidden=installed||!deferredInstallPrompt;
+ installStatus.textContent=installed
+  ? 'Installed: Wellness Tracker is running in its own app window.'
+  : deferredInstallPrompt
+   ? 'Ready to install. Tap Install Wellness Tracker for an app icon and standalone window.'
+   : 'On Android, open this website directly in Chrome, then choose Install app in the Chrome menu (⋮). If it is not available, tap Check installation setup below.';
 }
 window.addEventListener('beforeinstallprompt',event=>{
- event.preventDefault();deferredInstallPrompt=event;
- installBtn.hidden=false;
-});
-installBtn.addEventListener('click',async()=>{
- if(!deferredInstallPrompt)return;
- const prompt=deferredInstallPrompt;deferredInstallPrompt=null;
- installBtn.hidden=true;
- await prompt.prompt();
+ event.preventDefault();
+ deferredInstallPrompt=event;
  updateInstallInstructions();
 });
-window.addEventListener('appinstalled',()=>{deferredInstallPrompt=null;installBtn.hidden=true;updateInstallInstructions()});
+async function requestAppInstall(){
+ if(!deferredInstallPrompt){updateInstallInstructions();return}
+ const installPrompt=deferredInstallPrompt;
+ deferredInstallPrompt=null;
+ updateInstallInstructions();
+ try{
+  await installPrompt.prompt();
+  const choice=await installPrompt.userChoice;
+  if(choice?.outcome==='dismissed')installStatus.textContent='Installation cancelled. You can try again from the Chrome menu.';
+ }catch(err){installStatus.textContent='Could not start installation. Try Chrome menu (⋮) → Install app.';}
+}
+installBtn.addEventListener('click',requestAppInstall);
+installHeader.addEventListener('click',requestAppInstall);
+window.addEventListener('appinstalled',()=>{deferredInstallPrompt=null;updateInstallInstructions()});
+$('#checkInstall').addEventListener('click',async()=>{
+ const box=$('#installChecks');box.hidden=false;box.textContent='Checking installation files…';
+ const findings=[];
+ let passed=true;
+ const add=(ok,label,detail='')=>{findings.push((ok?'✓ ':'✕ ')+label+(detail?' — '+detail:''));if(!ok)passed=false};
+ add(location.protocol==='https:'||location.hostname==='localhost', 'Secure HTTPS address', 'Open the published GitHub Pages website, not a downloaded HTML file');
+ const link=document.querySelector('link[rel="manifest"]');
+ let data;
+ try{
+  const resp=await fetch(link?.href||'./manifest.webmanifest',{cache:'no-store'});
+  if(!resp.ok)throw new Error('HTTP '+resp.status);
+  data=await resp.json();
+  add(!!(data?.name&&data?.start_url&&data?.display==='standalone'),'Valid app manifest');
+ }catch(err){add(false,'Valid app manifest',String(err.message||err))}
+ if(data){
+  const required=['192x192','512x512'];
+  for(const size of required){
+   const icon=data.icons?.find(x=>x.sizes===size&&x.purpose!=='maskable');
+   if(!icon){add(false,size+' app icon','not in manifest');continue}
+   try{
+    const url=new URL(icon.src,link.href);
+    const r=await fetch(url,{cache:'no-store'});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const type=r.headers.get('content-type')||'';
+    if(type.includes('text/html'))throw new Error('Received HTML instead of PNG');
+    add(true,size+' app icon');
+   }catch(err){add(false,size+' app icon',String(err.message||err))}
+  }
+ }
+ if('serviceWorker' in navigator){
+  try{
+   const registration=await navigator.serviceWorker.getRegistration('./');
+   add(!!registration?.active, 'Offline service worker', registration?.installing?'Still installing — refresh after a moment':registration?.waiting?'Update waiting — close and reopen app':'');
+  }catch(err){add(false,'Offline service worker',String(err.message||err))}
+ }else add(false,'Offline service worker','Browser does not support service workers');
+ box.textContent=findings.join('\n')+(passed?'\nAll installation files look ready. If there is no Install app option, interact with the site, wait briefly, and reopen Chrome.':'\nOne or more checks failed. Make sure all v3 files are uploaded to the GitHub repository root, then refresh.');
+});
 updateInstallInstructions();
 renderAll();
-if('serviceWorker' in navigator && location.protocol==='https:')navigator.serviceWorker.register('./sw.js').catch(()=>{});
+if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost')){
+ window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(err=>{console.warn('Wellness Tracker service worker registration failed:',err)}));
+}

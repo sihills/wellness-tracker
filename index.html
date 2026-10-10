@@ -10,8 +10,8 @@
   <meta name="apple-mobile-web-app-title" content="Wellness">
   <meta name="description" content="A gentle, private wellness tracker for symptoms, episodes, triggers and everyday patterns.">
   <title>Wellness Tracker</title>
-  <link rel="icon" type="image/png" href="icons/icon-192.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="icon-192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="stylesheet" href="style.css">
   <script src="app.js" defer></script>
@@ -20,7 +20,7 @@
   <header class="app-header">
     <div class="brand-mark" aria-hidden="true"><span>✿</span></div>
     <div class="header-titles"><h1>Wellness Tracker</h1><p id="todayLabel">Your space to spot patterns</p></div>
-    <div class="header-flower" aria-hidden="true">✦</div>
+    <button type="button" class="header-install" id="installHeader" hidden>Install app</button><div class="header-flower" aria-hidden="true">✦</div>
   </header>
   <main id="main">
     <section id="today" class="page active" aria-labelledby="todayTitle">
@@ -84,7 +84,7 @@
 
     <section id="data" class="page" aria-labelledby="dataTitle">
       <div class="card"><h2 id="dataTitle">Your data & privacy</h2><p>Entries are saved <strong>in this browser, on this device</strong>. This app has no account, analytics or server database. GitHub Pages hosts only the code, not the health records.</p><p class="muted">Private browsing, clearing website data, replacing a device or using a different browser can make entries unavailable. Back up regularly and keep backup files somewhere private.</p><div class="button-stack"><button id="backupJson" class="primary" type="button">↓ Download complete backup (JSON)</button><button id="downloadCsv" type="button">↓ Download log (CSV)</button><label class="file-button">↑ Restore from a backup<input id="restoreJson" type="file" accept="application/json,.json" hidden></label></div></div>
-      <div class="card install-card"><h2>Install Wellness Tracker</h2><p class="muted">Install the app to launch from its own <strong>W</strong> icon, without having to open a browser tab. Installation depends on your browser and device.</p><button id="installApp" class="primary" type="button" hidden>Install Wellness Tracker</button><p id="installStatus" class="muted small"></p><p class="muted small">If you already added a Chrome-badged shortcut, remove that shortcut and use the <strong>Install app</strong> option when available. Existing data stays with the website, but back up before reinstalling or clearing any browser data.</p></div>
+      <div class="card install-card"><h2>Install Wellness Tracker</h2><p class="muted">Install the app to launch from its own <strong>W</strong> icon, without having to open a browser tab. Installation depends on your browser and device.</p><button id="installApp" class="primary" type="button" hidden>Install Wellness Tracker</button><button id="checkInstall" class="secondary" type="button">Check installation setup</button><div id="installChecks" class="install-checks" role="status" aria-live="polite" hidden></div><p id="installStatus" class="muted small"></p><p class="muted small">A shortcut with a Chrome badge is not the same as an installed app. On Android, open the published site directly in Chrome, check the installation setup here, then choose <strong>Install app</strong>. Existing data stays with the website, but back up before reinstalling or clearing any browser data.</p></div>
       <div class="card"><h2>Separate from your other tracker</h2><p class="muted">Wellness Tracker has its own records and settings. It doesn't read or change the data in Symptom Tracker or Life Tracker.</p></div>
       <div class="card danger-zone"><h2>Start fresh</h2><p class="muted">Permanently delete the records and profile saved for this app on this device. Make a backup first.</p><button id="clearData" type="button">Delete local Wellness Tracker data</button></div>
       <p class="foot-note">Wellness Tracker · Designed for personal record keeping · Not medical advice</p>
