@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Wellness">
-  <meta name="description" content="A gentle, private wellness tracker for symptoms, episodes, triggers and everyday patterns.">
+  <meta name="description" content="A gentle, private wellness tracker for symptoms, triggers and everyday patterns.">
   <title>Wellness Tracker</title>
   <link rel="icon" type="image/png" href="icon-192.png">
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -40,7 +40,6 @@
       <div class="card">
         <h2>Log something else</h2>
         <div class="action-grid">
-          <button type="button" data-action="episode"><span class="action-icon icon-coral">🫁</span><span>Detailed episode</span></button>
           <button type="button" data-action="sleep"><span class="action-icon icon-lilac">🌙</span><span>Sleep</span></button>
           <button type="button" data-action="medication"><span class="action-icon icon-peach">💊</span><span>Medication</span></button>
           <button type="button" data-action="trigger"><span class="action-icon icon-yellow">☀️</span><span>Triggers</span></button>
@@ -52,14 +51,14 @@
         <div class="section-top"><h2>Today's entries</h2><button class="linklike" type="button" id="seeHistory">See history</button></div>
         <div id="latestList"></div>
       </div>
-      <p class="safety-inline">This is a record-keeping tool, not a diagnostic or emergency service. Severe breathing difficulty, fainting, or chest pain needs urgent medical attention.</p>
+      <p class="safety-inline">This is a record-keeping tool, not a diagnostic or emergency service. Severe breathing difficulty, fainting or chest pain may need urgent medical attention.</p>
     </section>
 
     <section id="history" class="page" aria-labelledby="historyTitle">
       <div class="card">
         <h2 id="historyTitle">Your history</h2>
         <p class="muted">A timeline of what you actually recorded. Unlogged days aren't counted as symptom-free.</p>
-        <div class="filter-line"><label>Show <select id="historyType"><option value="all">All entries</option><option value="symptom">Symptoms</option><option value="episode">Episodes</option><option value="sleep">Sleep</option><option value="medication">Medication</option><option value="trigger">Triggers</option><option value="wellbeing">Wellbeing</option><option value="note">Notes</option></select></label><label>Period <select id="historyRange"><option value="30">30 days</option><option value="7">7 days</option><option value="90">90 days</option><option value="all">All time</option></select></label></div>
+        <div class="filter-line"><label>Show <select id="historyType"><option value="all">All entries</option><option value="symptom">Symptoms</option><option value="episode" id="legacyEpisodeFilter" hidden>Previous episodes</option><option value="sleep">Sleep</option><option value="medication">Medication</option><option value="trigger">Triggers</option><option value="wellbeing">Wellbeing</option><option value="note">Notes</option></select></label><label>Period <select id="historyRange"><option value="30">30 days</option><option value="7">7 days</option><option value="90">90 days</option><option value="all">All time</option></select></label></div>
         <div id="historyList"></div>
       </div>
     </section>
@@ -79,7 +78,7 @@
       <div class="card"><div class="section-top"><h2>Conditions</h2><button id="addCondition" class="small-btn" type="button">+ Add</button></div><div id="conditionList"></div></div>
       <div class="card"><div class="section-top"><h2>Medicines & HRT</h2><button id="addMedication" class="small-btn" type="button">+ Add</button></div><p class="muted small">Reference list only. Check dosages and treatment instructions against the prescription or with a clinician.</p><div id="medicationList"></div></div>
       <div class="card"><div class="section-top"><h2>Supplements</h2><button id="addSupplement" class="small-btn" type="button">+ Add</button></div><div id="supplementList"></div></div>
-      <div class="card"><div class="section-top"><h2>Your quick-log symptoms</h2><div class="profile-actions"><button id="addCustomSymptom" class="small-btn" type="button">+ Add symptom</button><button id="resetFavorites" class="small-btn" type="button">Reset</button></div></div><p class="muted small">Favourites are quick shortcuts on the Today tab. Unticking a symptom removes the shortcut, not its past records. There are 13 favourites by default, and 24 symptoms in the full list.</p><div id="favoritesList"></div><div id="customSymptomsList"></div></div>
+      <div class="card"><div class="section-top"><h2>Your quick-log symptoms</h2><div class="profile-actions"><button id="addCustomSymptom" class="small-btn" type="button">+ Add symptom</button><button id="resetFavorites" class="small-btn" type="button">Reset</button></div></div><p class="muted small">Favourites are quick shortcuts on the Today tab. Unticking a symptom removes the shortcut, not its past records. Choose which symptoms appear first on Today. Your previous entries are never deleted.</p><div id="favoritesList"></div><div id="customSymptomsList"></div></div>
     </section>
 
     <section id="data" class="page" aria-labelledby="dataTitle">

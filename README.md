@@ -1,28 +1,22 @@
-# Wellness Tracker v3 — installable app
+# Wellness Tracker v4 — symptoms and duration update
 
-This is the same 0–5, 24-symptom, tailored-trigger Wellness Tracker as v2. The change in v3 focuses on matching Life Tracker's standalone Android app installation experience.
+This update keeps the **same installable PWA setup** as v3 (same manifest, icons, application ID, URL scope and local-storage key). Do not uninstall your already installed Wellness Tracker, or clear site data.
 
-## Android installation (app drawer icon without Chrome badge)
+## Changes
+- Symptom severity 0–5 now uses six distinct colours: grey, blue, green, yellow, orange and rose.
+- Sleep apnea is available under Breathing. This is a new tracking item distinct from **Night waking (breathing)** in earlier records, which remain correctly labelled in history. Sleep apnea is not the same as waking at night; it describes a specific sleep-breathing condition.
+- Low mood replaces Low mood / sadness.
+- Drowsiness is under Allergies; Fainting is under Circulation. Near fainting remains a separate item.
+- Optional duration for Fainting, Near fainting, Palpitations, Dizziness, Breathlessness, Wheezing and Chest tightness; choose seconds, minutes or hours. Leave blank and add via Edit later.
+- Removed the **new** Detailed episode action to simplify daily tracking. Previous detailed-episode records remain intact and editable through History.
+- Quick Note stays a timestamped, free-text diary item, independent of any particular symptom.
 
-1. **Back up data first:** In your existing Wellness Tracker, open **Data → Download complete backup (JSON)**. Keep it somewhere private. Updating the website does not normally delete saved data, but do not clear its storage.
-2. Unzip this package and upload **every file at the top level** of your GitHub `wellness-tracker` repository, replacing any previous versions. In particular, `manifest.webmanifest`, `sw.js`, `icon-192.png`, `icon-512.png`, `icon-maskable-512.png` and `apple-touch-icon.png` must be next to `index.html`. Old `icons/` folder from v2 may be left there but is no longer used.
-3. Wait for the GitHub Pages deployment. Open `https://sihills.github.io/wellness-tracker/` **directly in Chrome on Android**, not the GitHub preview or a browser inside another app.
-4. Refresh once or twice after the new version appears. In the app, open **Data → Check installation setup**. All items should be ✓. A failed check indicates an upload, deployment or connection issue; fix it before installing.
-5. Select **Install app** from Chrome's ⋮ menu (or tap the **Install app** button in the app header if Chrome displays it). Accept the installation prompt. It may take a short time to appear in Android's app drawer. Check **Settings → Apps → Wellness Tracker**.
-6. Once installed successfully, remove any old Chrome-badged home-screen **shortcut**. Do not clear Chrome site data, as that holds health logs and settings.
+## How to update
+1. **Back up first:** Data → Download complete backup (JSON). Keep it private.
+2. Unzip and upload all files to your existing GitHub Pages `wellness-tracker` repository root, replacing files with the same name.
+3. Keep the same repository and URL. Your existing installed app should update when the service worker refreshes. You may need to close the app fully and reopen it twice, especially offline.
+4. Do **not** uninstall the installed app or clear site/browser storage. Both can risk losing locally stored records. No JSON profile re-import is needed.
+5. New files continue to include *no private personal health profile*; such information remains in local storage on the device.
 
-**Do not use a basic 'Create shortcut' option** if you want an app drawer entry without the Chrome badge. If Chrome will only create a shortcut, the device/browser has not produced the standalone Android WebAPK; app code cannot force that operation. The installation checks help narrow down a missing asset or manifest issue.
-
-## What changed from v2
-
-- Main app icons now sit in the **repository root**, just like Life Tracker. This removes the extra `icons/` folder dependency, which is easy to miss during uploads.
-- The manifest has the same important standalone settings as Life Tracker; both 192 and 512px icons and a maskable icon are supplied.
-- The service worker uses a fresh v3 cache and handles offline pages.
-- The install prompt appears in the header when Chrome offers installation, as it does in Life Tracker.
-- **Data → Check installation setup** confirms HTTPS, manifest, icon availability and service worker activation.
-
-All symptom logs, favourites, saved conditions and profiles retain the **same local storage key** and structure as v2. The app package includes no private diagnoses or medication records. Keep your separate medical profile/backups off GitHub.
-
-## Limits
-
-A website cannot guarantee or force Android to create a WebAPK. Installation requires a compatible browser/device and the published URL to be reachable over HTTPS. If Chrome lacks the Install app action even though checks pass, wait, interact with the app, reload and try the Chrome menu again.
+## Note about old records
+This update deliberately preserves legacy 0–10 ratings and detailed episode data, and maps historical 0–10 ratings to equivalent 0–5 ratings when analysing trends. Previously logged night breathing symptoms will **not** silently be reclassified as sleep apnea.

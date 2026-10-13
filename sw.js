@@ -1,4 +1,4 @@
-const CACHE = 'wellness-tracker-shell-v3';
+const CACHE = 'wellness-tracker-shell-v4';
 const FILES = ['./','./index.html','./style.css','./app.js','./manifest.webmanifest','./icon-192.png','./icon-512.png','./icon-maskable-512.png','./apple-touch-icon.png'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(cache => cache.addAll(FILES)).then(() => self.skipWaiting()));
