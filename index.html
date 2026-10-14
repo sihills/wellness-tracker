@@ -34,6 +34,7 @@
         <div class="section-top"><div><h2>Symptoms</h2><p class="muted small">Rate a symptom from 0–5, only when it’s useful.</p></div><button class="linklike" id="showAll" type="button">Show all</button></div>
         <div class="search-wrap" id="symptomSearchWrap" hidden><label class="sr-only" for="symptomSearch">Find a symptom</label><input id="symptomSearch" type="search" placeholder="Search symptoms…" autocomplete="off"></div>
         <div class="chips" id="categoryChips" aria-label="Symptom categories"></div>
+        <p id="mostCommonHint" class="muted small" hidden>Your 8 most frequently logged symptoms appear here automatically, based on all entries saved on this device. You can find every symptom under All.</p>
         <div id="symptomGrid" class="symptom-grid"></div>
         <p id="symptomEmpty" class="muted empty" hidden>No symptoms match. Try another category or search term.</p>
       </div>
@@ -78,7 +79,7 @@
       <div class="card"><div class="section-top"><h2>Conditions</h2><button id="addCondition" class="small-btn" type="button">+ Add</button></div><div id="conditionList"></div></div>
       <div class="card"><div class="section-top"><h2>Medicines & HRT</h2><button id="addMedication" class="small-btn" type="button">+ Add</button></div><p class="muted small">Reference list only. Check dosages and treatment instructions against the prescription or with a clinician.</p><div id="medicationList"></div></div>
       <div class="card"><div class="section-top"><h2>Supplements</h2><button id="addSupplement" class="small-btn" type="button">+ Add</button></div><div id="supplementList"></div></div>
-      <div class="card"><div class="section-top"><h2>Your quick-log symptoms</h2><div class="profile-actions"><button id="addCustomSymptom" class="small-btn" type="button">+ Add symptom</button><button id="resetFavorites" class="small-btn" type="button">Reset</button></div></div><p class="muted small">Favourites are quick shortcuts on the Today tab. Unticking a symptom removes the shortcut, not its past records. Choose which symptoms appear first on Today. Your previous entries are never deleted.</p><div id="favoritesList"></div><div id="customSymptomsList"></div></div>
+      <div class="card"><div class="section-top"><h2>Manage symptoms</h2><button id="addCustomSymptom" class="small-btn" type="button">+ Add symptom</button></div><p class="muted small">All built-in symptoms are under All on the Today tab. Most common updates automatically from your log history. You can add, edit or hide your own custom symptoms here.</p><div id="customSymptomsList"></div></div>
     </section>
 
     <section id="data" class="page" aria-labelledby="dataTitle">

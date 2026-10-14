@@ -1,19 +1,23 @@
-# Wellness Tracker v5 — optional symptom durations
+# Wellness Tracker v6 — Most common symptoms
 
-This is an in-place update to the existing **Wellness Tracker v4**, preserving its installable Android/iPhone PWA identity, icons, manifest, URL scope, and local browser-storage key. It does not include a personal medical profile. Do not uninstall the app to update.
+See [CHANGELOG.md](CHANGELOG.md) for the version history.
 
-## What's new
-- **11 priority symptoms:** Fainting, near fainting, palpitations, dizziness, breathlessness, wheezing, chest tightness, headache, nausea, upper abdominal pain, lower abdominal pain. A collapsed optional **How long did it last?** field appears when logging or editing them.
-- **4 occasional symptoms:** Drowsiness, brain fog, sinus / eye pressure, cough. Optional duration lives under **Additional details**.
-- **Every other symptom:** No duration prompt when logging. Open the entry in **History → Edit** to add a duration if useful. Works for user-added symptoms too.
-- **Fainting:** Separately tracks **time unconscious (if known)** and **total time feeling unwell**, so these aren't conflated. Both are optional and editable later.
-- Duration can be recorded in seconds, minutes or hours. If blank, the app stores no duration.
-- Entries, CSV export and appointment summaries show saved durations. Existing durations, symptom records and legacy detailed episodes remain accessible. Older fainting durations are **not** retroactively labelled as time unconscious unless explicitly updated.
+This release replaces manual symptom **Favourites** with an automatically populated **Most common** category on the Today tab.
+
+## What changes
+- The Most common category displays up to **eight symptoms**, ranked by the number of times each has been logged **across all saved history**. Ties favour the symptom recorded most recently. Severity does not affect ranking.
+- Most common updates immediately when a symptom entry is added, edited or deleted, or when a backup is restored. Custom symptoms can appear here, unless they are hidden.
+- With no symptom history, the app opens on **All** and the Most common category has an explanatory empty state.
+- Search always checks all currently available symptoms, not only Most common.
+- Manual favourite tick boxes and Reset favourites are removed from Health. **Manage symptoms** still allows creating/editing/hiding custom symptoms.
+- Symptom categories, symptom notes, 0–5 severity, optional durations, history, health profile, exports and all other features remain available.
 
 ## Update your installed app
-1. Open Wellness Tracker → **Data → Download complete backup (JSON)**; store privately.
-2. Extract this ZIP and upload all its contents into the ROOT of the **same** wellness-tracker GitHub repository, replacing same-named files. Do not change the repository or URL.
-3. Once GitHub Pages publishes the update, open the existing app icon while online; close and reopen if an older cached version appears. No reinstall needed.
-4. Do not delete the app or clear website data; existing local entries and your health profile stay on the device.
+1. In Wellness Tracker, choose **Data → Download complete backup (JSON)** and store it privately.
+2. Extract this ZIP and upload the files to the **root** of the same `wellness-tracker` GitHub repository, replacing files with matching names.
+3. Allow GitHub Pages to publish; open the already-installed Wellness Tracker while online, then close and reopen if a cached version appears.
+4. **Do not uninstall** the app or clear website data. You should not have to reinstall it.
 
-*This app is for personal records, not diagnosis. After a fainting event, time unconscious may not be known and should never be guessed.*
+The existing PWA name, ID, manifest, icons and `wellnessTracker_v1_private_data` storage key are unchanged. Historical favourite settings may remain in old backups, but are ignored and do not change or delete symptom logs.
+
+This application is for personal records, not diagnosis or treatment advice.

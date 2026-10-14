@@ -2,6 +2,21 @@
 
 This file records the user-facing changes to **Wellness Tracker**, a separate app from Life Tracker and Symptom Tracker. Releases are listed newest first. Dates refer to the date each package was created.
 
+## v6 — 14 October 2026
+**Focus: automatic Most common symptom group**
+
+### Changed
+- Replaced the manual **Favourites** symptom category with a **Most common** category on Today.
+- **Most common** displays up to eight active symptoms ranked by their total number of saved symptom entries (all time). Ties are broken by most recent entry. The group updates automatically when entries are logged, edited, deleted or restored.
+- **All** and the existing symptom categories remain available. On a fresh installation with no symptom history, Today opens to All and Most common displays a helpful empty state until entries exist.
+- Removed favourite-selection controls from Health and from the Add/Edit Custom Symptom screen. Custom symptoms can still be managed in Health.
+- Searching always looks across **All** symptoms, so less commonly logged items remain easy to find.
+
+### Data compatibility
+- All previous symptom records, custom symptoms, duration records, health profile information and backup/restore support are retained.
+- Legacy favourite settings in older backups are ignored; they no longer control which symptoms appear.
+- Kept the same app identity, browser storage key, installable PWA manifest and icons. Updated the offline cache version for v6.
+
 ## v5 — 14 October 2026
 **Focus: flexible symptom duration logging**
 

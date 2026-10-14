@@ -1,4 +1,4 @@
-WELLNESS TRACKER v5 — UPDATE
+WELLNESS TRACKER v6 — UPDATE
 
 1. In your existing installed Wellness Tracker, go to Data > Download complete backup (JSON). Store it privately.
 2. Extract this ZIP and upload ALL files to the ROOT of the SAME wellness-tracker GitHub repository, overwriting the earlier files.
