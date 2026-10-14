@@ -1,22 +1,19 @@
-# Wellness Tracker v4 — symptoms and duration update
+# Wellness Tracker v5 — optional symptom durations
 
-This update keeps the **same installable PWA setup** as v3 (same manifest, icons, application ID, URL scope and local-storage key). Do not uninstall your already installed Wellness Tracker, or clear site data.
+This is an in-place update to the existing **Wellness Tracker v4**, preserving its installable Android/iPhone PWA identity, icons, manifest, URL scope, and local browser-storage key. It does not include a personal medical profile. Do not uninstall the app to update.
 
-## Changes
-- Symptom severity 0–5 now uses six distinct colours: grey, blue, green, yellow, orange and rose.
-- Sleep apnea is available under Breathing. This is a new tracking item distinct from **Night waking (breathing)** in earlier records, which remain correctly labelled in history. Sleep apnea is not the same as waking at night; it describes a specific sleep-breathing condition.
-- Low mood replaces Low mood / sadness.
-- Drowsiness is under Allergies; Fainting is under Circulation. Near fainting remains a separate item.
-- Optional duration for Fainting, Near fainting, Palpitations, Dizziness, Breathlessness, Wheezing and Chest tightness; choose seconds, minutes or hours. Leave blank and add via Edit later.
-- Removed the **new** Detailed episode action to simplify daily tracking. Previous detailed-episode records remain intact and editable through History.
-- Quick Note stays a timestamped, free-text diary item, independent of any particular symptom.
+## What's new
+- **11 priority symptoms:** Fainting, near fainting, palpitations, dizziness, breathlessness, wheezing, chest tightness, headache, nausea, upper abdominal pain, lower abdominal pain. A collapsed optional **How long did it last?** field appears when logging or editing them.
+- **4 occasional symptoms:** Drowsiness, brain fog, sinus / eye pressure, cough. Optional duration lives under **Additional details**.
+- **Every other symptom:** No duration prompt when logging. Open the entry in **History → Edit** to add a duration if useful. Works for user-added symptoms too.
+- **Fainting:** Separately tracks **time unconscious (if known)** and **total time feeling unwell**, so these aren't conflated. Both are optional and editable later.
+- Duration can be recorded in seconds, minutes or hours. If blank, the app stores no duration.
+- Entries, CSV export and appointment summaries show saved durations. Existing durations, symptom records and legacy detailed episodes remain accessible. Older fainting durations are **not** retroactively labelled as time unconscious unless explicitly updated.
 
-## How to update
-1. **Back up first:** Data → Download complete backup (JSON). Keep it private.
-2. Unzip and upload all files to your existing GitHub Pages `wellness-tracker` repository root, replacing files with the same name.
-3. Keep the same repository and URL. Your existing installed app should update when the service worker refreshes. You may need to close the app fully and reopen it twice, especially offline.
-4. Do **not** uninstall the installed app or clear site/browser storage. Both can risk losing locally stored records. No JSON profile re-import is needed.
-5. New files continue to include *no private personal health profile*; such information remains in local storage on the device.
+## Update your installed app
+1. Open Wellness Tracker → **Data → Download complete backup (JSON)**; store privately.
+2. Extract this ZIP and upload all its contents into the ROOT of the **same** wellness-tracker GitHub repository, replacing same-named files. Do not change the repository or URL.
+3. Once GitHub Pages publishes the update, open the existing app icon while online; close and reopen if an older cached version appears. No reinstall needed.
+4. Do not delete the app or clear website data; existing local entries and your health profile stay on the device.
 
-## Note about old records
-This update deliberately preserves legacy 0–10 ratings and detailed episode data, and maps historical 0–10 ratings to equivalent 0–5 ratings when analysing trends. Previously logged night breathing symptoms will **not** silently be reclassified as sleep apnea.
+*This app is for personal records, not diagnosis. After a fainting event, time unconscious may not be known and should never be guessed.*

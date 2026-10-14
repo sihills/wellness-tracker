@@ -1,21 +1,14 @@
-WELLNESS TRACKER v4 — UPDATE YOUR EXISTING INSTALLED APP
+WELLNESS TRACKER v5 — UPDATE
 
-1. First, open Wellness Tracker > Data > Download complete backup (JSON). Keep the backup file private.
-2. Extract this ZIP. Upload all of its files to the ROOT of your existing GitHub repository for wellness-tracker, replacing same-named files.
-3. Do NOT create a new repository, change the URL, clear app/browser storage, or uninstall the app.
-4. After GitHub Pages has updated, connect to the internet, open the existing Wellness Tracker icon, close the app fully, then reopen it. An additional reopen may be needed while the offline cache refreshes.
-5. Verify that the new Sleep apnea and Drowsiness symptoms are visible, the 0-5 colours have changed, and optional duration appears for Fainting or Palpitations.
-6. Your original private health profile stays on your device. No new health-profile JSON import is necessary.
+1. In your existing installed Wellness Tracker, go to Data > Download complete backup (JSON). Store it privately.
+2. Extract this ZIP and upload ALL files to the ROOT of the SAME wellness-tracker GitHub repository, overwriting the earlier files.
+3. Once GitHub Pages refreshes, open the installed app online; fully close and reopen it if needed.
+4. Do NOT uninstall, clear app data, switch repositories or URLs. Your existing entries and profile remain stored locally.
 
-CHANGES
-- Sleep apnea is a NEW tracking item, so old "Night waking (breathing)" records retain their accurate historical label.
-- Low mood / sadness -> Low mood.
-- New Drowsiness (Allergies) and Fainting (Circulation); Near fainting stays separate.
-- Clearer grey/blue/green/yellow/orange/rose 0–5 rating colours.
-- Optional duration (seconds, minutes, hours) on relevant symptoms; add later using Edit if unknown at first.
-- New Detailed episode button removed. Old episode records remain accessible in History.
-- Quick Note remains an independent timestamped note.
+WHAT CHANGED
+11 priority symptoms have an optional duration field when logging.
+4 occasional symptoms have an optional duration under Additional details.
+Other symptoms offer duration when you Edit an entry later.
+For fainting, time unconscious and time feeling unwell are distinct optional fields.
 
-Android and iPhone installation support, app ID, and storage key remain unchanged from v3.
-
-Sleep apnea is not synonymous with waking during the night. Use it only where appropriate to the known or suspected sleep breathing problem.
+Android/iPhone install identity, icons, local storage key and scope are unchanged.
